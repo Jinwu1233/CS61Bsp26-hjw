@@ -40,8 +40,13 @@ public class IntList {
      * You are not allowed to use "new" in this method.
      */
     public static IntList incrRecursiveDestructive(IntList L, int x) {
-        // TODO: Fill in this code
-        return null;
+        if(L == null) {
+            return null;
+        }
+
+        L.first += x;
+        IntList.incrRecursiveDestructive(L.rest, x);
+        return L;
     }
 
     /*
@@ -54,15 +59,22 @@ public class IntList {
      * Returns the sum of all elements in the IntList.
      */
     public int sum() {
-        // Optional: Fill in this code
-        return 0;
+        if (rest == null) {
+            return first;
+        }
+        return first + rest.sum();
     }
 
     /**
      * Destructively adds x to the end of the list.
      */
     public void addLast(int x) {
-        // Optional: Fill in this code
+        if (rest == null) {
+            rest.first = x;
+            rest.rest = null;
+            return;
+        }
+        rest.addLast(x);
     }
 
     /**
@@ -72,6 +84,8 @@ public class IntList {
      * be destructive.
      */
     public void addFirst(int x) {
-        // Optional: Fill in this code
+       IntList newIntList = new IntList(first, rest);
+       first = x;
+       rest = newIntList;
     }
 }
